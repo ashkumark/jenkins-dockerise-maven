@@ -7,6 +7,10 @@ pipeline {
     	//registryCredential = '518637836680'
     	dockerImage = ''
     }
+
+    options {
+        skipDefaultCheckout(true)
+    }
     
     stages {
         stage('Clean WS & checkout SCM') {
