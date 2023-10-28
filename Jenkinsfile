@@ -29,10 +29,11 @@ pipeline {
         }
         stage('Generate HTML report') {
             steps {
-                cucumber buildStatus: 'UNSTABLE',
+                cucumber buildStatus: '',
                         reportTitle: 'My report',
                         fileIncludePattern: '**/*.json',
-                        jsonReportDirectory: "./target",
+                        //jsonReportDirectory: "./target",
+                        jsonReportDirectory: "/var/jenkins_home/workspace/Test@2/target",
                         trendsLimit: 10,
                         classifications: [
                                 [
