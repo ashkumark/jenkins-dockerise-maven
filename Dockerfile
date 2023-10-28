@@ -14,6 +14,10 @@ ENV JENKINS_OPTS="--logfile=/var/log/jenkins/jenkins.log"
 
 USER root
 
+#Basic Utils
+RUN apt-get update
+RUN apt-get install -y wget curl jq unzip sudo tar --no-install-recommends
+
 RUN mkdir /var/log/jenkins
 RUN chown -R  jenkins:jenkins /var/log/jenkins
 
