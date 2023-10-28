@@ -27,6 +27,18 @@ pipeline {
             	sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
+        stage('Generate HTML report') {
+            cucumber buildStatus: 'UNSTABLE',
+                    reportTitle: 'My report',
+                    fileIncludePattern: '**/*.json',
+                    trendsLimit: 10,
+                    classifications: [
+                            [
+                                    'key': 'API',
+                                    'value': 'API'
+                            ]
+                    ]
+        }
         /*stage('Push Image') {
             steps {
                 script {     
@@ -39,13 +51,13 @@ pipeline {
     }
 
     post {
-        success {
+        always {
             // publish html
             publishHTML target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
                     keepAll: true,
-                    reportDir: './target/Reports/',
+                    reportDir: 'target/Reports/',
                     reportFiles: 'index.html',
                     reportName: 'E2E Tests Report'
             ]
