@@ -45,7 +45,7 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
                     keepAll: true,
-                    reportDir: 'target/Reports/',
+                    reportDir: './target/Reports/',
                     reportFiles: 'index.html',
                     reportName: 'E2E Tests Report'
             ]
