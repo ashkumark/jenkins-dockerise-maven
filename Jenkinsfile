@@ -16,8 +16,8 @@ pipeline {
         stage('Clean WS & checkout SCM') {
             steps {
                 // Clean before build
-                cleanWs()
-                deleteDir()
+                //cleanWs()
+                //deleteDir()
                 // We need to explicitly checkout from SCM here
                 checkout scm
                 echo "Building ${env.JOB_NAME}..."
@@ -66,8 +66,8 @@ pipeline {
         }
 
         always {
-            cleanWs()
-            deleteDir()
+            //cleanWs()
+            //deleteDir()
         }
     }
 
