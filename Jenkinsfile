@@ -9,6 +9,15 @@ pipeline {
     }
     
     stages {
+        stage('Clean WS & checkout SCM') {
+            steps {
+                // Clean before build
+                cleanWs()
+                // We need to explicitly checkout from SCM here
+                checkout scm
+                echo "Building ${env.JOB_NAME}..."
+            }
+        }
         stage('Build Image') {
             steps {
                 script {
