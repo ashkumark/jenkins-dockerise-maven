@@ -17,6 +17,7 @@ pipeline {
             steps {
                 // Clean before build
                 cleanWs()
+                deleteDir()
                 // We need to explicitly checkout from SCM here
                 checkout scm
                 echo "Building ${env.JOB_NAME}..."
