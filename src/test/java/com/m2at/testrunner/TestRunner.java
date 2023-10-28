@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		features = "classpath:features", 
 		glue = { "com.m2at.glue" }, 
-		plugin = {"json:target/cucumber.json",
+		plugin = {"pretty", "json:target/cucumber.json",
 				  "html:target/cucumber-html-report/regression-tests.html",
 				  "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )

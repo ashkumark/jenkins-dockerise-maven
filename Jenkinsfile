@@ -35,7 +35,7 @@ pipeline {
         stage('Generate HTML report') {
             steps {
                 cucumber buildStatus: '',
-                        reportTitle: 'My report',
+                        reportTitle: 'Cucumber report',
                         fileIncludePattern: '**/*.json',
                         //jsonReportDirectory: "./target",
                         jsonReportDirectory: "${currentWorkspace}/target",
@@ -67,8 +67,16 @@ pipeline {
                     alwaysLinkToLastBuild: false,
                     keepAll: true,
                     reportDir: "${currentWorkspace}/target/Reports/",
-                    reportFiles: 'index.html',
-                    reportName: 'E2E Tests Report'
+                    reportFiles: 'automated-test-report.html',
+                    reportName: 'Extent Test Report'
+            ]
+            publishHTML target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: "${currentWorkspace}/target/cucumber-html-report/",
+                    reportFiles: 'regression-tests.html',
+                    reportName: 'Cucumber Test Report'
             ]
         }
     }
