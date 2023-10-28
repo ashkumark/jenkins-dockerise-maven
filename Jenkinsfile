@@ -28,16 +28,18 @@ pipeline {
             }
         }
         stage('Generate HTML report') {
-            cucumber buildStatus: 'UNSTABLE',
-                    reportTitle: 'My report',
-                    fileIncludePattern: '**/*.json',
-                    trendsLimit: 10,
-                    classifications: [
-                            [
-                                    'key': 'API',
-                                    'value': 'API'
-                            ]
-                    ]
+            steps {
+                cucumber buildStatus: 'UNSTABLE',
+                        reportTitle: 'My report',
+                        fileIncludePattern: '**/*.json',
+                        trendsLimit: 10,
+                        classifications: [
+                                [
+                                        'key'  : 'API',
+                                        'value': 'API'
+                                ]
+                        ]
+            }
         }
         /*stage('Push Image') {
             steps {
