@@ -50,10 +50,6 @@ pipeline {
                     reportName: 'E2E Tests Report'
             ]
         }
-
-        always {
-            cleanWs()
-        }
     }
 
 }
