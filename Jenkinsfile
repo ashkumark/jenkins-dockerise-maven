@@ -66,7 +66,7 @@ pipeline {
 
         always {
             cleanWs()
-            deleteDir
+            deleteDir()
         }
     }
 
