@@ -17,6 +17,7 @@ pipeline {
             steps {
                 // Clean before build
                 cleanWs()
+                sh 'rm -rf $WORKSPACE'
                 deleteDir()
                 // We need to explicitly checkout from SCM here
                 checkout scm
