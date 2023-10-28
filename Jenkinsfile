@@ -34,7 +34,7 @@ pipeline {
                         reportTitle: 'My report',
                         fileIncludePattern: '**/*.json',
                         //jsonReportDirectory: "./target",
-                        jsonReportDirectory: "/var/jenkins_home/workspace/Test@2/target",
+                        jsonReportDirectory: "$WORKSPACE/target",
                         trendsLimit: 10,
                         classifications: [
                                 [
@@ -62,7 +62,7 @@ pipeline {
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
                     keepAll: true,
-                    reportDir: 'target/Reports/',
+                    reportDir: "$WORKSPACE/target/Reports/",
                     reportFiles: 'index.html',
                     reportName: 'E2E Tests Report'
             ]
