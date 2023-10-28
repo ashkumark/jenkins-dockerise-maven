@@ -24,6 +24,7 @@ pipeline {
                 }
             }
             steps {
+                echo "Current workspace is $WORKSPACE"
             	sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
