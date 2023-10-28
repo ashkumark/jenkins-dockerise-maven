@@ -50,28 +50,23 @@ pipeline {
              }
         }*/
     }
-    
-	post {
-        // Clean after build
-        always {
-            cleanWs(cleanWhenNotBuilt: false,
-                    deleteDirs: true,
-                    disableDeferredWipeout: true,
-                    notFailBuild: true,
-                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
-                               [pattern: '.propsfile', type: 'EXCLUDE']])
-        }
 
+    post {
         success {
-          // publish html
-          publishHTML target: [
-              allowMissing: false,
-              alwaysLinkToLastBuild: false,
-              keepAll: true,
-              reportDir: 'target/Reports/',
-              reportFiles: 'index.html',
-              reportName: 'E2E Tests Report'
+            // publish html
+            publishHTML target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'target/Reports/',
+                    reportFiles: 'index.html',
+                    reportName: 'E2E Tests Report'
             ]
         }
-      }
+
+        always {
+            cleanWs()
+        }
+    }
+
 }
