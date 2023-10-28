@@ -65,10 +65,10 @@ pipeline {
             ]
         }
 
-        always {
-            //cleanWs()
-            //deleteDir()
-        }
+/*        always {
+            cleanWs()
+            deleteDir()
+        }*/
     }
 
 }
