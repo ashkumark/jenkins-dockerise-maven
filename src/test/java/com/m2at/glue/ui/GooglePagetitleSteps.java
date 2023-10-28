@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.m2at.constants.Environment;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -37,7 +38,6 @@ public class GooglePagetitleSteps {
 
 	private String testUrl;
 	private String browserType;
-	private String file;
 
 	LoadProperties loadProperties;
 	WebDriverFactory webDriverFactory;
@@ -60,7 +60,7 @@ public class GooglePagetitleSteps {
 
 	/**
 	 * Wait Until Page Loads completely
-	 * 
+	 *
 	 * @param driver
 	 */
 	public void waitUntilPageLoadsCompletely(WebDriver driver) {
@@ -82,7 +82,7 @@ public class GooglePagetitleSteps {
 
 	/**
 	 * Get element based on locator
-	 * 
+	 *
 	 * @param locator
 	 * @return element
 	 */
@@ -99,28 +99,16 @@ public class GooglePagetitleSteps {
 
 	@Before("@UI")
 	public void beforeScenario() throws InterruptedException, IOException {
-		file = "google.properties";
-		
-		String filePath = ConfigPath.CONFIG_FILE_PATH.getValue() + file;
-		
-		// Get Resource As Stream for the file passed on
-		ClassLoader classLoader = getClass().getClassLoader();
-		InputStream inputStream = classLoader.getResourceAsStream(filePath);
-				
-		// Setup properties		
-		loadProperties = new LoadProperties();
-		property = loadProperties.loadProperty(inputStream);
-
-		// Instantiate browser driver based on browserType		
+		// Instantiate browser driver
 		webDriverFactory = new WebDriverFactory();
-		driver = webDriverFactory.initialiseWebDriver(property.getProperty("browserType"));
+		driver = webDriverFactory.initialiseWebDriver();
 
 		// Instantiate WebDriverWait
 		wait = new WebDriverWait(driver, 10);
 
 		// Navigate
 		driver.manage().window().maximize();
-		driver.navigate().to(property.getProperty("testUrl"));
+		driver.navigate().to(Environment.URL.getValue());
 	}
 
 	@After("@UI")
@@ -128,27 +116,21 @@ public class GooglePagetitleSteps {
 		if (driver != null) {
 			driver.quit();
 		}
-		
-		/*		if (wdm != null) {
-					wdm.quit();
-				}*/
 	}
-	
+
 	public void cookies() {
-		
-		int size = driver.findElements(By.xpath(property.getProperty("iAgreeButton"))).size();
+		String acceptAllLocator = "//button//*[contains(text(),'Accept all')]";
+		int size = driver.findElements(By.xpath(acceptAllLocator)).size();
 		if(size != 0) {
-			getWebElement(property.getProperty("iAgreeButton")).click();
+			getWebElement(acceptAllLocator).click();
 		}
 	}
 
-	@Given("I am on the homepage")
-	public void i_am_on_the_homepage() {
+	@Given("I am on Google homepage")
+	public void i_am_on_google_homepage() {
 		try {
-			
 			cookies();
-			
-			boolean searchTextBoxPresent = getWebElement(property.getProperty("searchBox")).isDisplayed();
+			boolean searchTextBoxPresent = getWebElement("//*[@name='q']").isDisplayed();
 			assertThat(searchTextBoxPresent, is(true));
 			System.out.println("User is on the home Page");
 		} catch (AssertionError e) {
@@ -157,21 +139,21 @@ public class GooglePagetitleSteps {
 		} catch (Exception e) {
 			System.out.println("Exception");
 			Assert.fail("Exception - " + e.getMessage());
-		} 
+		}
 	}
 
-	@When("I search for {string}")
+	@When("I search for a {string}")
 	public void i_search_for(String searchItem) {
-		getWebElement(property.getProperty("searchBox")).sendKeys(searchItem);
-		getWebElement(property.getProperty("searchBox")).submit();
+		getWebElement("//*[@name='q']").sendKeys(searchItem);
+		getWebElement("//*[@name='q']").submit();
 		waitUntilPageLoadsCompletely(driver);
 	}
 
-	@Then("the page title should include {string}")
+	@Then("the page title should include the {string}")
 	public void the_page_title_should_include(String expected) {
-		try {			
+		try {
 			System.out.println("expected: " + expected);
-			
+
 			String actual = driver.getTitle();
 			System.out.println("actual: " + actual);
 
@@ -183,6 +165,6 @@ public class GooglePagetitleSteps {
 		} catch (Exception e) {
 			System.out.println("Exception");
 			Assert.fail("Exception - " + e.getMessage());
-		} 
+		}
 	}
 }

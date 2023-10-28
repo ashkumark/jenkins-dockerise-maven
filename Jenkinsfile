@@ -1,10 +1,10 @@
 pipeline {
-    //agent any
-    agent { label 'jenkins-agent' }
+    agent any
+    //agent { label 'jenkins-agent' }
     
     environment {
-    	uri = '518637836680.dkr.ecr.eu-west-2.amazonaws.com/ashkumarkdocker/docker-e2e-automation'
-    	registryCredential = '518637836680'
+    	//uri = '518637836680.dkr.ecr.eu-west-2.amazonaws.com/ashkumarkdocker/docker-e2e-automation'
+    	//registryCredential = '518637836680'
     	dockerImage = ''
     }
     
@@ -27,18 +27,7 @@ pipeline {
             	sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
-        stage('UI Automation') {
-        	agent {
-                docker {
-                    image 'ashkumarkdocker/docker-e2e-automation'
-                    args '-v $HOME/.m2:/root/.m2'
-                }
-            }
-            steps {
-            	sh 'mvn test -Dcucumber.filter.tags="@UI"'
-            }       
-        }
-        stage('Push Image') {
+        /*stage('Push Image') {
             steps {
                 script {     
                    docker.withRegistry("https://" + uri, "ecr:eu-west-2:" + registryCredential) {
@@ -46,7 +35,7 @@ pipeline {
 				   }				       
 				}
              }
-        }
+        }*/
     }
     
 	post {
