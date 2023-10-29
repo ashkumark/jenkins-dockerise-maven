@@ -21,7 +21,7 @@ pipeline {
                 sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
-        stage('Generate HTML report') {
+        stage('Generate HTML reports') {
             steps {
                 reuseNode true
                 cucumber buildStatus: '',
@@ -36,38 +36,31 @@ pipeline {
                                         'value': 'API'
                                 ]
                         ]
+
+                // publish html
+                publishHTML target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: "${currentWorkspace}/target/Reports/",
+                        reportFiles: 'automated-test-report.html',
+                        reportName: 'Extent Test Report'
+                ]
+                publishHTML target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: "${currentWorkspace}/target/cucumber-html-report/",
+                        reportFiles: 'regression-tests.html',
+                        reportName: 'Cucumber Test Report'
+                ]
             }
         }
-        /*stage('Push Image') {
-            steps {
-                script {     
-                   docker.withRegistry("https://" + uri, "ecr:eu-west-2:" + registryCredential) {
-                         dockerImage.push()
-				   }				       
-				}
-             }
-        }*/
     }
 
     post {
         always {
-            // publish html
-            publishHTML target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: "${currentWorkspace}/target/Reports/",
-                    reportFiles: 'automated-test-report.html',
-                    reportName: 'Extent Test Report'
-            ]
-            publishHTML target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: "${currentWorkspace}/target/cucumber-html-report/",
-                    reportFiles: 'regression-tests.html',
-                    reportName: 'Cucumber Test Report'
-            ]
+            cleanWs()
         }
     }
 
