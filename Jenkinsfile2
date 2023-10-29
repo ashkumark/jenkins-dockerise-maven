@@ -22,8 +22,8 @@ pipeline {
             }
         }
         stage('Generate HTML report') {
-            reuseNode true
             steps {
+                reuseNode true
                 cucumber buildStatus: '',
                         reportTitle: 'Cucumber report',
                         fileIncludePattern: '**/*.json',
@@ -50,7 +50,6 @@ pipeline {
     }
 
     post {
-        reuseNode true
         always {
             // publish html
             publishHTML target: [
