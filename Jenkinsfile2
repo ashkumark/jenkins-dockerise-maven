@@ -1,26 +1,15 @@
 pipeline {
     agent none
-    //agent { label 'jenkins-agent' }
     
     environment {
-    	//uri = '518637836680.dkr.ecr.eu-west-2.amazonaws.com/ashkumarkdocker/docker-e2e-automation'
-    	//registryCredential = '518637836680'
-    	//dockerImage = ''
         currentWorkspace = ''
     }
 
     stages {
-        stage('Build Image') {
+        stage('API Automation') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                }
-            }
-        }
-        stage('API Automation') {
-        	agent {
-                docker {
-                    reuseNode true
                     args '-v $HOME/.m2:/root/.m2'
                 }
             }
@@ -29,7 +18,7 @@ pipeline {
                     currentWorkspace = "$WORKSPACE"
                     echo "Current workspace is ${currentWorkspace}"
                 }
-            	sh 'mvn test -Dcucumber.filter.tags="@API"'
+                sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
         stage('Generate HTML report') {
