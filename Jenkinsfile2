@@ -22,6 +22,7 @@ pipeline {
             }
         }
         stage('Generate HTML report') {
+            reuseNode true
             steps {
                 cucumber buildStatus: '',
                         reportTitle: 'Cucumber report',
@@ -49,6 +50,7 @@ pipeline {
     }
 
     post {
+        reuseNode true
         always {
             // publish html
             publishHTML target: [
