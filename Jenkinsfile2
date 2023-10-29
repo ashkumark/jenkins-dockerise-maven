@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        currentWorkspace = ''
+        //currentWorkspace = ''
     }
 
     stages {
@@ -28,7 +28,8 @@ pipeline {
                         reportTitle: 'Cucumber report',
                         fileIncludePattern: '**/*.json',
                         //jsonReportDirectory: "./target",
-                        jsonReportDirectory: "${currentWorkspace}/target",
+                        //jsonReportDirectory: "${currentWorkspace}/target",
+                        jsonReportDirectory: "target/",
                         trendsLimit: 10,
                         classifications: [
                                 [
@@ -42,7 +43,8 @@ pipeline {
                         allowMissing: false,
                         alwaysLinkToLastBuild: false,
                         keepAll: true,
-                        reportDir: "${currentWorkspace}/target/Reports/",
+                        //reportDir: "${currentWorkspace}/target/Reports/",
+                        reportDir: "target/Reports/",
                         reportFiles: 'automated-test-report.html',
                         reportName: 'Extent Test Report'
                 ]
@@ -51,7 +53,7 @@ pipeline {
                         allowMissing: false,
                         alwaysLinkToLastBuild: false,
                         keepAll: true,
-                        reportDir: "${currentWorkspace}/target/cucumber-html-report/",
+                        reportDir: "target/cucumber-html-report/",
                         reportFiles: 'regression-tests.html',
                         reportName: 'Cucumber Test Report'
                 ]
