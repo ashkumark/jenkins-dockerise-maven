@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     
     environment {
         currentWorkspace = ''
@@ -24,6 +24,7 @@ pipeline {
         stage('Generate HTML reports') {
             steps {
                 reuseNode true
+
                 cucumber buildStatus: '',
                         reportTitle: 'Cucumber report',
                         fileIncludePattern: '**/*.json',
@@ -46,6 +47,7 @@ pipeline {
                         reportFiles: 'automated-test-report.html',
                         reportName: 'Extent Test Report'
                 ]
+
                 publishHTML target: [
                         allowMissing: false,
                         alwaysLinkToLastBuild: false,
