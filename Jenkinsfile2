@@ -23,7 +23,11 @@ pipeline {
         }
         stage('Generate HTML reports') {
             steps {
-                reuseNode true
+                agent {
+                    docker {
+                        reuseNode true
+                    }
+                }
 
                 cucumber buildStatus: '',
                         reportTitle: 'Cucumber report',
