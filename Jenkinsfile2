@@ -6,7 +6,13 @@ pipeline {
     }*/
 
     stages {
-        stage('API Automation') {
+        stage('Docker System Prune') {
+            steps {
+                sh 'docker system prune -a --volumes -f'
+            }
+        }
+
+        stage('Build & API Automation') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
