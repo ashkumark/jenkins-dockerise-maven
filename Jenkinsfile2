@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     
     environment {
         currentWorkspace = ''
@@ -51,8 +51,6 @@ pipeline {
 
     post {
         always {
-            reuseNode true
-
             // publish html
             publishHTML target: [
                     allowMissing: false,
