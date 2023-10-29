@@ -25,6 +25,7 @@ pipeline {
                     currentWorkspace = "$WORKSPACE"
                     echo "Current workspace is ${currentWorkspace}"
                 }*/
+                sh 'docker ps'
                 sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
