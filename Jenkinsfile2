@@ -22,13 +22,12 @@ pipeline {
             }
         }
         stage('Generate HTML reports') {
-            steps {
-                agent {
-                    docker {
-                        reuseNode true
-                    }
+            agent {
+                docker {
+                    reuseNode true
                 }
-
+            }
+            steps {
                 cucumber buildStatus: '',
                         reportTitle: 'Cucumber report',
                         fileIncludePattern: '**/*.json',
