@@ -62,6 +62,10 @@ pipeline {
 
     post {
         always {
+            steps {
+                reuseNode true
+                sh 'docker rm -f $(docker ps -aq)'
+            }
             cleanWs()
         }
     }
