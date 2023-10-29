@@ -1,9 +1,9 @@
 pipeline {
     agent any
     
-    environment {
-        //currentWorkspace = ''
-    }
+/*    environment {
+        currentWorkspace = ''
+    }*/
 
     stages {
         stage('API Automation') {
