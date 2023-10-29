@@ -15,10 +15,10 @@ pipeline {
                 }
             }
             steps {
-                script {
+/*                script {
                     currentWorkspace = "$WORKSPACE"
                     echo "Current workspace is ${currentWorkspace}"
-                }
+                }*/
                 sh 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
