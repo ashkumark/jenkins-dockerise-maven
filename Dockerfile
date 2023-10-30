@@ -2,7 +2,8 @@
 
 #FROM jenkins/jenkins:latest-jdk8
 #FROM jenkins/jenkins:lts
-FROM jenkins/jenkins:jdk11
+#FROM jenkins/jenkins:jdk11
+FROM jenkins/jenkins:jdk17
 LABEL maintainer="ash"
 
 WORKDIR /home/docker-jenkins-test
