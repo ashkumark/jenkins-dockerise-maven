@@ -8,10 +8,6 @@ pipeline {
     stages {
         stage('Docker System Prune') {
             steps {
-                echo 'Check permissions 1'
-                sh 'ls -l'
-                sh 'whoami'
-                echo "Current workspace is $WORKSPACE"
                 sh 'docker system prune -a --volumes -f'
                 sh 'docker ps'
             }
@@ -52,31 +48,14 @@ pipeline {
                     currentWorkspace = "$WORKSPACE"
                     echo "Current workspace is ${currentWorkspace}"
                 }*/
-                echo 'Check permissions 2'
-                sh 'ls -l'
-                sh 'whoami'
-                echo "Current workspace is $WORKSPACE"
-                sh 'docker-compose ps'
 
                 sh 'docker ps'
                 sh 'mvn test -Dcucumber.filter.tags="@API"'
-
-                echo 'Check permissions 3'
-                sh 'ls -l'
-                sh 'whoami'
-                echo "Current workspace is $WORKSPACE"
-                sh 'docker-compose ps'
             }
         }
 
         stage('Generate HTML reports') {
             steps {
-                echo 'Check permissions 4'
-                sh 'ls -l'
-                sh 'whoami'
-                echo "Current workspace is $WORKSPACE"
-                sh 'docker-compose ps'
-
                 cucumber buildStatus: '',
                         reportTitle: 'Cucumber report',
                         fileIncludePattern: '**/*.json',
